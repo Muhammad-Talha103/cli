@@ -9,7 +9,7 @@ export async function POST(req) {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Origin": "https://cli-puce.vercel.app", // ya client ka domain
+        "Origin": "https://grew-scanner.vercel.app", // ya client ka domain
       },
       body: new URLSearchParams({
         Key: licenseKey,
