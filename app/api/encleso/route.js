@@ -1,26 +1,38 @@
-// app/api/encleso/route.js
-export async function POST(req) {
-  try {
-    // Apni client wali license key
-    const licenseKey = process.env.ENCLESO_KEY || "Jn6SlEQtMRRbewL5mxlJWkTVj4k0X94pKEu";
+import { NextResponse } from "next/server";
 
-    // Encleso endpoint call
-    const res = await fetch("https://encleso.com/API/SetLicenseKey", {
+export async function GET() {
+  try {
+    const LICENSE_KEY = Jn6SlEQtMRRbewL5mxlJWkTVj4k0X94pKEu;
+    if (!LICENSE_KEY) {
+      return NextResponse.json({ error: "License key missing" }, { status: 500 });
+    }
+
+    // Apna allowed origin jo aapne Encleso ko diya tha
+    const origin = "https://grew-scanner.vercel.app"; 
+
+    const body = new URLSearchParams();
+    body.append("Key", LICENSE_KEY);
+
+    const resp = await fetch("https://encleso.com/API/SetLicenseKey", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Origin": "https://grew-scanner.vercel.app", // ya client ka domain
+        "Origin": origin,
       },
-      body: new URLSearchParams({
-        Key: licenseKey,
-      }),
+      body: body.toString(),
     });
 
-    const enclesoResponse = await res.json();
+    if (!resp.ok) {
+      const text = await resp.text();
+      return NextResponse.json(
+        { error: "Encleso API error", detail: text },
+        { status: resp.status }
+      );
+    }
 
-    return Response.json({ enclesoResponse });
+    const json = await resp.json();
+    return NextResponse.json(json); // { token: "..." }
   } catch (err) {
-    console.error("Encleso API error:", err);
-    return Response.json({ error: "Failed to get license" }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
