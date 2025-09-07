@@ -1,103 +1,137 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Script from "next/script";
+import { useEffect } from "react";
+
+export default function Page() {
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      <nav className="navbar navbar-dark bg-dark">
+        <a className="navbar-brand" href="#">Encleso Demo</a>
+      </nav>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="container mt-3">
+        <div className="row">
+          <div className="col-12 col-lg-4">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text" htmlFor="ScannerName">Scanner</label>
+              </div>
+              <select className="custom-select" id="ScannerName">
+                <option>Choose...</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-4">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text" htmlFor="resolution">Resolution (DPI)</label>
+              </div>
+              <select className="custom-select" id="resolution">
+                <option>Choose...</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-4">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text" htmlFor="colorMode">Color Mode</label>
+              </div>
+              <select className="custom-select" id="colorMode">
+                <option>Choose...</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <div className="row">
+          <div className="col-12 col-sm-6 col-xl-3 offset-xl-3">
+            <div className="form-check text-center mb-3">
+              <input className="form-check-input" type="checkbox" value="" id="chkShowUI" defaultChecked />
+              <label className="form-check-label" htmlFor="chkShowUI">Show Driver Interface</label>
+            </div>
+          </div>
+
+          <div className="col-12 col-sm-6 col-xl-3">
+            <div className="form-check text-center mb-3">
+              <input className="form-check-input" type="checkbox" value="" id="chkDuplex" />
+              <label className="form-check-label" htmlFor="chkDuplex">Duplex Mode</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr className="mt-0" />
+
+      <div className="w-100 text-center d-flex flex-column align-items-center">
+        <button
+          type="button"
+          id="btnScan"
+          className="btn btn-primary mb-3"
+          onClick={() => typeof window !== "undefined" && window.StartScanning && window.StartScanning()}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          Scan Now...
+        </button>
+      </div>
+
+      <hr className="mt-0" />
+
+      <div className="container mt-3">
+        <div className="row">
+          <div className="col-12 col-lg-4 offset-lg-3">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <label className="input-group-text" htmlFor="imageFormat">Image Format</label>
+              </div>
+              <select className="custom-select" id="imageFormat" defaultValue="jpg" disabled>
+                <option value="jpg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="tiff-single">TIFF</option>
+                <option value="bmp">BMP</option>
+                <option value="pdf-single">PDF</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-2 text-center">
+            <button
+              type="button"
+              id="btnSave"
+              className="btn btn-primary mb-3"
+              style={{ minWidth: "6.65rem" }}
+              onClick={() => typeof window !== "undefined" && window.SaveImageToFilesystem && window.SaveImageToFilesystem()}
+              disabled
+            >
+              Save
+            </button>
+          </div>
+        </div>
+
+        <div className="alert alert-warning d-none text-center" role="alert" id="alert-warn-error"></div>
+        <img id="ScanOutput" className="d-none img-fluid" alt="Scan Output" />
+      </div>
+
+      {/* Scripts: jQuery -> Bootstrap -> Encleso -> app script */}
+      <Script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://encleso.com/Assets/scripts/encleso.min.js"
+        strategy="afterInteractive"
+      />
+      <Script src="/encleso-demo.js" strategy="afterInteractive" />
+    </>
   );
 }
+
+
