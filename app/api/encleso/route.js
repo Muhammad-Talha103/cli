@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const LICENSE_KEY = Jn6SlEQtMRRbewL5mxlJWkTVj4k0X94pKEu;
+    const LICENSE_KEY = "Jn6SlEQtMRRbewL5mxlJWkTVj4k0X94pKEu";
     if (!LICENSE_KEY) {
       return NextResponse.json({ error: "License key missing" }, { status: 500 });
     }
